@@ -10,10 +10,8 @@ public class Main {
 
         CrawlerLauncher launcher = new CrawlerLauncher();
         launcher.launch(profiles);
-
-        for (Profile profile :
-                profiles) {
-            System.out.println(profile);
-        };
+        
+        profiles.stream()
+                .forEach(System.out::println);
     }
 }

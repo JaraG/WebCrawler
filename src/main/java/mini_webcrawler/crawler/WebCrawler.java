@@ -51,12 +51,6 @@ public class WebCrawler {
     Represents a single crawl thread
      */
     class CrawlThread extends Thread {
-        private ObjectMapper mapper;
-
-        public CrawlThread() {
-            this.mapper = new ObjectMapper();
-            this.mapper.configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-        }
 
         /*
         While URls queue is not empty reads URL string from queue, builds Profile and adds it to List of profiles.

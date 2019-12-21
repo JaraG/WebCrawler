@@ -97,8 +97,8 @@ public class GitHubProfile implements Profile {
 
     @Override
     public String toString() {
-        return String.format("login=%s, name=%s, company=%s, location=%s, mostPopularLanguage=%s, mostPopularRepository=%s, " +
-                "starsInMostPopRepository=%s, ProgrammingLangInMostPopRepository=%s", login, name, company, location, mostPopularLanguage,
+        return String.format("login=%s; name=%s; company=%s; location=%s; mostPopularLanguage=%s; mostPopularRepository=%s; " +
+                "starsInMostPopRepository=%s; ProgrammingLangInMostPopRepository=%s", login, name, company, location, mostPopularLanguage,
                 mostPopularRepository, starsInMostPopRepo, programmingLangInMostPopRepo);
     }
 }

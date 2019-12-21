@@ -1,7 +1,5 @@
 package mini_webcrawler.crawler;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import mini_webcrawler.profile.Profile;
 import mini_webcrawler.profile.ProfileBuilder;
 import mini_webcrawler.profile.github.GitHubProfileBuilder;

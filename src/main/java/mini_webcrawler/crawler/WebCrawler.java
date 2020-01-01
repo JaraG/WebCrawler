@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WebCrawler {
-    private Queue<String> URLs;
-    private List<Profile> profiles;
+    private final Queue<String> URLs;
+    private final List<Profile> profiles;
     private final int maxParallelRequests;
     private final int requestDelayMs;
 
@@ -49,7 +49,7 @@ public class WebCrawler {
     /*
     Represents a single crawl thread
      */
-    class CrawlThread extends Thread {
+    private class CrawlThread extends Thread {
 
         /*
         While URls queue is not empty reads URL string from queue, builds Profile and adds it to List of profiles.
@@ -58,32 +58,23 @@ public class WebCrawler {
         @Override
         public void run() {
             String url = null;
-            boolean urlIsRead = false;
 
             while (!URLs.isEmpty()) {
                 synchronized (URLs) {
-                    if (!URLs.isEmpty()){
-                        url = URLs.remove();
-                        urlIsRead = true;
-                    }
+                    url = URLs.poll();
                 }
-                if (urlIsRead) {
+                if (url != null) {
                     ProfileBuilder profileBuilder = new GitHubProfileBuilder(url);
                     Profile profile = profileBuilder.getProfile();
                     synchronized (profiles) {
                         profiles.add(profile);
                     }
-                    urlIsRead = false;
                 }
 
-                boolean isSleeping = true;
-                while (isSleeping) {
-                    try {
-                        Thread.sleep(requestDelayMs);
-                        isSleeping = false;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    Thread.sleep(requestDelayMs);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }

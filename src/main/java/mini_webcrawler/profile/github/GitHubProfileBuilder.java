@@ -34,7 +34,7 @@ public class GitHubProfileBuilder implements ProfileBuilder {
     private void build() {
         GitHubProfile = new GitHubProfile();
 
-        fillProfileOverview(profileURLString);
+        fillProfileOverview();
         fillArrayOfRepositories();
         setMostPopularLanguage();
         setMostPopularRepoProperties();
@@ -44,7 +44,7 @@ public class GitHubProfileBuilder implements ProfileBuilder {
     /*
        Initializes ProfileOverview class
      */
-    private void fillProfileOverview(String profileURLString) {
+    private void fillProfileOverview() {
         String[] parts = profileURLString.split("/");
         String login = parts[parts.length - 1];
         ProfileOverview profileOverview = null;

@@ -34,7 +34,7 @@ public class GitHubProfileBuilder implements ProfileBuilder {
     private void build() {
         GitHubProfile = new GitHubProfile();
 
-        fillProfileOverview(profileURLString);
+        fillProfileOverview();
         fillArrayOfRepositories();
         setMostPopularLanguage();
         setMostPopularRepoProperties();
@@ -44,12 +44,19 @@ public class GitHubProfileBuilder implements ProfileBuilder {
     /*
        Initializes ProfileOverview class
      */
-    private void fillProfileOverview(String profileURLString) {
-        String[] parts = profileURLString.split("/");
-        String login = parts[parts.length - 1];
+    private void fillProfileOverview() {
+        //extracts login from URL
+        StringBuilder loginBuilder = new StringBuilder();
+        char c;
+        int index = profileURLString.length() - 1;
+        while (index >= 0 && (c = profileURLString.charAt(index)) != '/') {
+            loginBuilder.append(profileURLString.charAt(index));
+            index--;
+        }
+
         ProfileOverview profileOverview = null;
         try {
-            URL profileURL = new URL("https://api.github.com/users/" + login);
+            URL profileURL = new URL("https://api.github.com/users/" + loginBuilder.reverse());
             profileOverview = mapper.readValue(profileURL, ProfileOverview.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -130,8 +137,6 @@ public class GitHubProfileBuilder implements ProfileBuilder {
         GitHubProfile.setName(profileOverview.getName());
         GitHubProfile.setLocation(profileOverview.getLocation());
     }
-
-
 }
 
     /*

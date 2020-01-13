@@ -11,7 +11,6 @@ public class Main {
         CrawlerLauncher launcher = new CrawlerLauncher();
         launcher.launch(profiles);
 
-        profiles.stream()
-                .forEach(System.out::println);
+        profiles.forEach(System.out::println);
     }
 }
